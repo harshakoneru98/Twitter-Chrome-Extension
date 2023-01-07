@@ -43,10 +43,39 @@ exports.language_detection = async (req, res, next) => {
 
 exports.sentiment_score = async (req, res, next) => {
     try {
-        res.status(200).json({ message: 'Called Sentiment Score API' });
-    } catch (error) {
-        res.status(500).json({
-            message: err
+        let english_tweets = req.body;
+
+        let options = {
+            pythonPath: config.PYTHON_PATH,
+            scriptPath: 'api/scripts',
+            args: [
+                JSON.stringify(english_tweets),
+                './api/scripts/classifier.pkl',
+                './api/scripts/tokenizer.pkl'
+            ]
+        };
+
+        const result = await new Promise((resolve, reject) => {
+            PythonShell.run(
+                'calculate_sentiment.py',
+                options,
+                async function (err, results) {
+                    if (err) return reject(err);
+                    return resolve(results);
+                }
+            );
+        });
+
+        let final_result = [];
+
+        result.map((res) => {
+            final_result.push(JSON.parse(res.replace(/'/g, '"')));
+        });
+
+        res.json(final_result);
+    } catch (err) {
+        res.status(404).json({
+            error: err
         });
     }
 };
