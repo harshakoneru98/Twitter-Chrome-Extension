@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "API endpoints for calculating tweet sentiment scores",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Twitter",
+    "REST APIs"
+  ],
+  "author": "Harsha Vardhan Koneru",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^18.11.18",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
+  }
+}
