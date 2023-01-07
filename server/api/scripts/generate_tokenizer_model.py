@@ -1,8 +1,8 @@
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
-import torch
+import pickle
 
 tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
-torch.save(tokenizer, './tokenizer.pkl')
+pickle.dump(tokenizer, open('tokenizer.pkl', 'wb'))
 
 model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
-torch.save(model, './classifier.pkl')
+pickle.dump(model, open('classifier.pkl', 'wb'))

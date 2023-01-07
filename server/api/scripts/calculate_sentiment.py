@@ -1,9 +1,9 @@
-import torch, json, sys
+import pickle, json, sys
 from scipy.special import softmax
 
 tweets = sys.argv[1]
-model = torch.load(sys.argv[2])
-tokenizer = torch.load(sys.argv[3])
+model = pickle.load(open(sys.argv[2], 'rb'))
+tokenizer = pickle.load(open(sys.argv[3], 'rb'))
 
 tweets_data = json.loads(tweets)
 
