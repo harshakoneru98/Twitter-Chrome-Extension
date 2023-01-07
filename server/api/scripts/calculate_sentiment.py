@@ -1,21 +1,17 @@
-import pickle, json, sys
-from scipy.special import softmax
+import json, sys
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 tweets = sys.argv[1]
-model = pickle.load(open(sys.argv[2], 'rb'))
-tokenizer = pickle.load(open(sys.argv[3], 'rb'))
-
 tweets_data = json.loads(tweets)
 
+sentiment = SentimentIntensityAnalyzer()
+
 for tweet in tweets_data:
-    encoded_input = tokenizer(tweet['tweet_text'], return_tensors='pt')
-    output = model(**encoded_input)
-    scores = output[0][0].detach().numpy()
-    scores = softmax(scores)
+    output = sentiment.polarity_scores(tweet['tweet_text'])
     final_score = {
-        "positive": scores[2],
-        "neutral": scores[1],
-        "negative": scores[0]  
+        "positive": output['pos'],
+        "neutral": output['neu'],
+        "negative": output['neg']  
     }
     final_data = {
         "tweet_text": tweet['tweet_text'],

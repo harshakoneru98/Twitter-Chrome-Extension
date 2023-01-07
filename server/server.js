@@ -14,4 +14,4 @@ const server = http.createServer(app);
 
 // server.listen() method creates a listener on the specified port or path
 server.listen(port);
-console.log('Express server started on port %s', server.address().port);
+console.log('Express server started on port %s', server.address()?.port);

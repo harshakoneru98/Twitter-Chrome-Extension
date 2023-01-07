@@ -48,11 +48,7 @@ exports.sentiment_score = async (req, res, next) => {
         let options = {
             pythonPath: config.PYTHON_PATH,
             scriptPath: 'api/scripts',
-            args: [
-                JSON.stringify(english_tweets),
-                './api/scripts/classifier.pkl',
-                './api/scripts/tokenizer.pkl'
-            ]
+            args: [JSON.stringify(english_tweets)]
         };
 
         const result = await new Promise((resolve, reject) => {
