@@ -7,3 +7,6 @@ package-lock.json
 
 # dotenv environment variables file
 .env
+
+# Python
+.DS_Store
