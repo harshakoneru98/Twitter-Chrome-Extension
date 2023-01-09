@@ -14,7 +14,7 @@ for tweet in tweets_data:
         "negative": output['neg']  
     }
     final_data = {
-        "tweet_text": tweet['tweet_text'].replace("'", "\\\\'"),
+        "tweet_text": tweet['tweet_text'],
         "sentiment_score": final_score,
         "detected_mood": max(final_score, key=final_score.get).upper()
     }
