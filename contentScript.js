@@ -38,6 +38,7 @@ let language_detection_endpoint = async (tweets) => {
             }
         );
         let json_data = await api_data.json();
+        // console.log('LD JSON Data : ', json_data);
         return json_data;
     } catch (e) {
         console.log('Error identifying language : ', e);
@@ -46,6 +47,7 @@ let language_detection_endpoint = async (tweets) => {
 
 // Calculates Sentiment Scores for each tweet
 let sentiment_score_endpoint = async (tweets) => {
+    console.log('Sentiment Input : ', tweets);
     try {
         let api_data = await fetch(
             'https://tradework.online/api/sentiment-score',
@@ -60,7 +62,7 @@ let sentiment_score_endpoint = async (tweets) => {
         );
 
         let json_data = await api_data.json();
-        // console.log('JSON Data : ', json_data)
+        console.log('SS JSON Data : ', json_data);
         return json_data;
     } catch (e) {
         console.log('Error calculating sentiment score : ', e);
@@ -127,7 +129,7 @@ waitForElm('section').then(async (elm) => {
                         let ss_data = await sentiment_score_endpoint(
                             filtered_ld_data
                         );
-                        // console.log('SS Data : ', ss_data);
+                        console.log('SS Data : ', ss_data);
                     } catch (e) {
                         console.log('Error : ', e);
                     }
