@@ -19,23 +19,41 @@ let waitForElm = (selector) => {
     });
 };
 
+// Detects if the tweet is in english langauage or not
 let language_detection_endpoint = async (tweets) => {
     let body = tweets.map((tweet) => ({
         tweet_text: tweet
     }));
 
-    await fetch('https://tradework.online/api/language-detection', {
+    let api_data = await fetch(
+        'https://tradework.online/api/language-detection',
+        {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        }
+    );
+
+    let json_data = await api_data.json();
+    return json_data;
+};
+
+// Calculates Sentiment Scores for each tweet
+let sentiment_score_endpoint = async (tweets) => {
+    let api_data = await fetch('https://tradework.online/api/sentiment-score', {
         method: 'POST',
         mode: 'cors',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(body)
-    })
-        .then((data) => data.json())
-        .then((data) => {
-            console.log('Final Data : ', data);
-        });
+        body: JSON.stringify(tweets)
+    });
+
+    let json_data = await api_data.json();
+    return json_data;
 };
 
 waitForElm('section').then(async (elm) => {
@@ -81,7 +99,21 @@ waitForElm('section').then(async (elm) => {
                         JSON.stringify(prev_tweets.tweets)
                 ) {
                     await chrome.storage.sync.set({ tweets: tweets });
-                    await language_detection_endpoint(tweets);
+                    let ld_data = await language_detection_endpoint(tweets);
+                    console.log('LD Data : ', ld_data);
+
+                    let filtered_ld_data = await ld_data.filter(
+                        (tweet) => tweet.is_english
+                    );
+
+                    filtered_ld_data = await filtered_ld_data.map((tweet) => ({
+                        tweet_text: tweet.tweet_text
+                    }));
+
+                    let ss_data = await sentiment_score_endpoint(
+                        filtered_ld_data
+                    );
+                    console.log('SS Data : ', ss_data);
                 }
             }
         }
