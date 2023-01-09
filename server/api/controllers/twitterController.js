@@ -65,7 +65,9 @@ exports.sentiment_score = async (req, res, next) => {
         let final_result = [];
 
         result.map((res) => {
-            final_result.push(JSON.parse(res.replace(/'/g, '"')));
+            final_result.push(
+                JSON.parse(res.replace(/'/g, '"').replace('\\"', "'"))
+            );
         });
 
         res.json(final_result);
