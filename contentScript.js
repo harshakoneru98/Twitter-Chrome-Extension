@@ -113,21 +113,23 @@ waitForElm('section').then(async (elm) => {
                         let ld_data = await language_detection_endpoint(tweets);
                         console.log('LD Data : ', ld_data);
 
-                        let filtered_ld_data = await ld_data.filter(
-                            (tweet) => tweet.is_english
-                        );
+                        if (ld_data.length > 0) {
+                            let filtered_ld_data = await ld_data.filter(
+                                (tweet) => tweet.is_english
+                            );
 
-                        filtered_ld_data = await filtered_ld_data.map(
-                            (tweet) => ({
-                                tweet_text: tweet.tweet_text
-                            })
-                        );
+                            filtered_ld_data = await filtered_ld_data.map(
+                                (tweet) => ({
+                                    tweet_text: tweet.tweet_text
+                                })
+                            );
 
-                        let ss_data = await sentiment_score_endpoint(
-                            filtered_ld_data
-                        );
+                            let ss_data = await sentiment_score_endpoint(
+                                filtered_ld_data
+                            );
 
-                        console.log('SS Data : ', ss_data);
+                            console.log('SS Data : ', ss_data);
+                        }
                     } catch (e) {
                         console.log('Error : ', e);
                     }

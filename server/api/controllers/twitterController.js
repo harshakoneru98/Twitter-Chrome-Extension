@@ -23,29 +23,20 @@ exports.language_detection = async (req, res, next) => {
         });
 
         if (result == null) {
-            console.log(
-                'Failed LD : ',
-                JSON.stringify(tweets_input.map((obj) => obj.tweet_text))
-            );
+            res.json([]);
         } else {
-            console.log(
-                'Passed LD : ',
-                JSON.stringify(tweets_input.map((obj) => obj.tweet_text))
-            );
-        }
+            let language_results = JSON.parse(result[0]);
+            const output = [];
 
-        console.log('Python Output : ', result);
-        let language_results = JSON.parse(result[0]);
-        const output = [];
-
-        tweets_input.map((tweet, id) => {
-            output.push({
-                tweet_text: tweet.tweet_text,
-                is_english: language_results[id] == 1 ? true : false
+            tweets_input.map((tweet, id) => {
+                output.push({
+                    tweet_text: tweet.tweet_text,
+                    is_english: language_results[id] == 1 ? true : false
+                });
             });
-        });
 
-        res.json(output);
+            res.json(output);
+        }
     } catch (err) {
         res.status(404).json({
             error: err
