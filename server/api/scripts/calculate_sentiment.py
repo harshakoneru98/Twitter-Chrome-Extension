@@ -18,4 +18,4 @@ for tweet in tweets_data:
         "sentiment_score": final_score,
         "detected_mood": max(final_score, key=final_score.get).upper()
     }
-    print(final_data)
+    print(json.dumps(final_data))
