@@ -5,7 +5,6 @@ const config = require('../../config');
 exports.language_detection = async (req, res, next) => {
     try {
         let tweets_input = req.body;
-	// console.log('Input: ', tweets_input)
         let options = {
             pythonPath: config.PYTHON_PATH,
             scriptPath: 'api/scripts',
@@ -23,15 +22,20 @@ exports.language_detection = async (req, res, next) => {
             );
         });
 
-	if(result == null){
-		console.log('Failed LD : ', JSON.stringify(tweets_input.map((obj) => obj.tweet_text)))
-	}else{
-		console.log('Passed LD : ', JSON.stringify(tweets_input.map((obj) => obj.tweet_text)))
-	}
-	
-	console.log('Python Output : ', result)
+        if (result == null) {
+            console.log(
+                'Failed LD : ',
+                JSON.stringify(tweets_input.map((obj) => obj.tweet_text))
+            );
+        } else {
+            console.log(
+                'Passed LD : ',
+                JSON.stringify(tweets_input.map((obj) => obj.tweet_text))
+            );
+        }
+
+        console.log('Python Output : ', result);
         let language_results = JSON.parse(result[0]);
-	// console.log('JSON parse : ', language_results)
         const output = [];
 
         tweets_input.map((tweet, id) => {
@@ -69,21 +73,12 @@ exports.sentiment_score = async (req, res, next) => {
                 }
             );
         });
-	
-	console.log('Result : ', result)
-	if(result == null){
-                console.log('Failed SS : ', JSON.stringify(english_tweets))
-        }else{
-		console.log('Passed SS : ', JSON.stringify(english_tweets))
-	}
 
         let final_result = [];
 
         result.map((res) => {
             final_result.push(JSON.parse(res));
         });
-
-	console.log('Final Result : ', final_result)
 
         res.json(final_result);
     } catch (err) {
