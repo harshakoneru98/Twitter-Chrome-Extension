@@ -25,35 +25,46 @@ let language_detection_endpoint = async (tweets) => {
         tweet_text: tweet
     }));
 
-    let api_data = await fetch(
-        'https://tradework.online/api/language-detection',
-        {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        }
-    );
-
-    let json_data = await api_data.json();
-    return json_data;
+    try {
+        let api_data = await fetch(
+            'https://tradework.online/api/language-detection',
+            {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            }
+        );
+        let json_data = await api_data.json();
+        return json_data;
+    } catch (e) {
+        console.log('Error identifying language : ', e);
+    }
 };
 
 // Calculates Sentiment Scores for each tweet
 let sentiment_score_endpoint = async (tweets) => {
-    let api_data = await fetch('https://tradework.online/api/sentiment-score', {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(tweets)
-    });
+    try {
+        let api_data = await fetch(
+            'https://tradework.online/api/sentiment-score',
+            {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(tweets)
+            }
+        );
 
-    let json_data = await api_data.json();
-    return json_data;
+        let json_data = await api_data.json();
+        // console.log('JSON Data : ', json_data)
+        return json_data;
+    } catch (e) {
+        console.log('Error calculating sentiment score : ', e);
+    }
 };
 
 waitForElm('section').then(async (elm) => {
@@ -98,22 +109,28 @@ waitForElm('section').then(async (elm) => {
                     JSON.stringify(tweets) !==
                         JSON.stringify(prev_tweets.tweets)
                 ) {
-                    await chrome.storage.sync.set({ tweets: tweets });
-                    let ld_data = await language_detection_endpoint(tweets);
-                    console.log('LD Data : ', ld_data);
+                    try {
+                        await chrome.storage.sync.set({ tweets: tweets });
+                        let ld_data = await language_detection_endpoint(tweets);
+                        // console.log('LD Data : ', ld_data);
 
-                    let filtered_ld_data = await ld_data.filter(
-                        (tweet) => tweet.is_english
-                    );
+                        let filtered_ld_data = await ld_data.filter(
+                            (tweet) => tweet.is_english
+                        );
 
-                    filtered_ld_data = await filtered_ld_data.map((tweet) => ({
-                        tweet_text: tweet.tweet_text
-                    }));
+                        filtered_ld_data = await filtered_ld_data.map(
+                            (tweet) => ({
+                                tweet_text: tweet.tweet_text
+                            })
+                        );
 
-                    let ss_data = await sentiment_score_endpoint(
-                        filtered_ld_data
-                    );
-                    console.log('SS Data : ', ss_data);
+                        let ss_data = await sentiment_score_endpoint(
+                            filtered_ld_data
+                        );
+                        // console.log('SS Data : ', ss_data);
+                    } catch (e) {
+                        console.log('Error : ', e);
+                    }
                 }
             }
         }

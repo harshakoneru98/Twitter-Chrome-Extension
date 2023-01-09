@@ -7,6 +7,11 @@ tweets_data = json.loads(tweets)
 output = []
 
 for tweet in tweets_data:
-    output.append(1 if detect(tweet) == 'en' else 0)
-
+    try:
+        if detect(tweet) == 'en':
+            output.append(1)
+        else:
+            output.append(0)
+    except:
+        output.append(0)
 print(output)
