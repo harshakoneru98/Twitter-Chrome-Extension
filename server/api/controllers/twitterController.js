@@ -11,8 +11,8 @@ exports.language_detection = async (req, res, next) => {
             args: [JSON.stringify(tweets_input.map((obj) => obj.tweet_text))]
         };
 
-        const result = await new Promise((resolve, reject) => {
-            PythonShell.run(
+        const result = await new Promise(async (resolve, reject) => {
+            await PythonShell.run(
                 'detect_language.py',
                 options,
                 async function (err, results) {
@@ -63,8 +63,8 @@ exports.sentiment_score = async (req, res, next) => {
             args: [JSON.stringify(english_tweets)]
         };
 
-        const result = await new Promise((resolve, reject) => {
-            PythonShell.run(
+        const result = await new Promise(async (resolve, reject) => {
+            await PythonShell.run(
                 'calculate_sentiment.py',
                 options,
                 async function (err, results) {
