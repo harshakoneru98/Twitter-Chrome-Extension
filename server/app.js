@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 
 // Handling CORS Errors
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', 'https://twitter.com');
     res.header('Access-Control-Allow-Credentials', true);
     res.header(
         'Access-Control-Allow-Headers',
