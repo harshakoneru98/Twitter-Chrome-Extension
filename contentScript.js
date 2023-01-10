@@ -194,6 +194,7 @@ waitForElm('section').then(async (elm) => {
                                     <div class="tweet_mood"><p style="font-size: 15px;color: rgb(83, 100, 113);font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif;">Detected Mood: ${final_moods[i]}</p></div>
                                     `;
                                     if (
+                                        user_tweets[i] &&
                                         user_tweets[i].lastChild &&
                                         user_tweets[i].lastChild.classList &&
                                         user_tweets[i].lastChild.classList[0] !=
