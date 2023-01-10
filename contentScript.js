@@ -32,12 +32,14 @@ let extract_content_xpath = (selector, type) => {
 
     if (type == 'tweet_text') {
         while ((node = results.iterateNext())) {
-            let tweet_text = node.innerHTML
-                .replace(/<img .*?alt="([^"]+)"[^>]*>/g, ' $1 ') // extract alt text from img tag
-                .replace(/<\/?[a-z][^>]*>/g, ' ') // remove all tags
-                .replace(/\s+/g, ' ')
-                .trim(); // cleanup whitespace
-            output.push(tweet_text);
+            if (!node.closest('div[role]')) {
+                let tweet_text = node.innerHTML
+                    .replace(/<img .*?alt="([^"]+)"[^>]*>/g, ' $1 ') // extract alt text from img tag
+                    .replace(/<\/?[a-z][^>]*>/g, ' ') // remove all tags
+                    .replace(/\s+/g, ' ')
+                    .trim(); // cleanup whitespace
+                output.push(tweet_text);
+            }
         }
     } else {
         while ((node = results.iterateNext())) {
