@@ -207,12 +207,20 @@ let calculate_sentiment = async () => {
     }
 };
 
-waitForElm('section').then(async (elm) => {
-    waitForElm('article').then(async (elment) => {
-        await calculate_sentiment();
-    });
+let detect_mood = () => {
+    waitForElm('section').then(async (elm) => {
+        waitForElm('article').then(async (elment) => {
+            await calculate_sentiment();
+        });
 
-    scrollStop(async () => {
-        await calculate_sentiment();
+        scrollStop(async () => {
+            await calculate_sentiment();
+        });
     });
+};
+
+window.addEventListener('click', () => {
+    detect_mood();
 });
+
+detect_mood();
