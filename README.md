@@ -10,6 +10,15 @@ A Chrome Extension reads the tweets in the user timeline and calculates the sent
 - Nginx
 - PM2
 
+## Methods used to calculate sentiment score
+### 1. /api/language-detection endpoint
+1. Used Language detection library ported from Google's **language-detection**.
+2. Tried other libraries like **Lingua** but failing for some of the base cases.
+
+### 2. /api/sentiment-score endpoint
+1. Used **vaderSentiment - SentimentIntensityAnalyzer**, which is a lexicon and rule-based sentiment analysis tool that is specifically attuned to sentiments expressed in social media.
+2. Tried other Transformer based pre-trained models like **twitter-roberta-base-sentiment-latest**. I got very accurate results in local code, but not used due to memory limitations with AWS EC2 .micro instance as I am unable to install heavy libraries like torch, tranformers along with 500MB pre-trained model.
+
 ## Setup
 ### Local Code Setup
 Get the code by cloning this repository using git
@@ -31,6 +40,6 @@ Open Chrome Browser and enable developer mode in extensions. Click on Load Unpac
 10. Start the nginx using **systemctl start nginx**
 
 ## References
-http://nginx.org/en/docs/http/configuring_https_servers.html
-https://pm2.keymetrics.io/docs/usage/quick-start/
-https://techblog.geekyants.com/aws-and-ec2-deploying-a-nodejs-application-using-nginx-and-pm2
+1. http://nginx.org/en/docs/http/configuring_https_servers.html
+2. https://pm2.keymetrics.io/docs/usage/quick-start/
+3. https://techblog.geekyants.com/aws-and-ec2-deploying-a-nodejs-application-using-nginx-and-pm2
