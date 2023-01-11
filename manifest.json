@@ -11,7 +11,19 @@
             "js": ["contentScript.js"]
         }
     ],
+    "icons": {
+        "16": "assets/twitter.png",
+        "32": "assets/twitter.png",
+        "48": "assets/twitter.png",
+        "128": "assets/twitter.png"
+    },
     "action": {
+        "default_icon": {
+            "16": "assets/twitter.png",
+            "32": "assets/twitter.png",
+            "48": "assets/twitter.png",
+            "128": "assets/twitter.png"
+        },
         "default_title": "Tweet Sentiment"
     }
 }
