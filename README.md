@@ -9,6 +9,7 @@ A Chrome Extension reads the tweets in the user timeline and calculates the sent
 - Node.js
 - Python
 - JavaScript
+- Manifest V3
 - AWS (EC2, Route53)
 - Nginx
 - PM2
