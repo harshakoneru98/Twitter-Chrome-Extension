@@ -19,6 +19,7 @@ let waitForElm = (selector) => {
     });
 };
 
+// Extract elements based on XPath
 let extract_content_xpath = (selector, type) => {
     let results = document.evaluate(
         selector,
@@ -98,6 +99,7 @@ let sentiment_score_endpoint = async (tweets) => {
     }
 };
 
+// returns mood emojis based on mood text
 let mood_emoji = (mood) => {
     if (mood == 'POSITIVE') {
         return String.fromCodePoint(128522);
@@ -110,6 +112,7 @@ let mood_emoji = (mood) => {
     }
 };
 
+// Maps moods to the each tweet crawled from DOM
 let generate_moods = (indexes, moods) => {
     output = [];
     mood_index = 0;
@@ -125,6 +128,7 @@ let generate_moods = (indexes, moods) => {
     return output;
 };
 
+// Detects when scroll stops
 let scrollStop = (callback, refresh = 66) => {
     // Make sure a valid callback was provided
     if (!callback || typeof callback !== 'function') return;
@@ -146,6 +150,7 @@ let scrollStop = (callback, refresh = 66) => {
     );
 };
 
+// API calls and DOM changes
 let calculate_sentiment = async () => {
     try {
         let tweets = extract_content_xpath(
@@ -207,6 +212,7 @@ let calculate_sentiment = async () => {
     }
 };
 
+// Checks for section and article elements if they exist or not
 let detect_mood = () => {
     waitForElm('section').then(async (elm) => {
         waitForElm('article').then(async (elment) => {
@@ -219,6 +225,7 @@ let detect_mood = () => {
     });
 };
 
+// Captures click events
 window.addEventListener('click', () => {
     detect_mood();
 });
