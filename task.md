@@ -77,10 +77,8 @@ This API endpoint is supposed to return the sentiment score related to each twee
 In this part, you should create a Chrome Extension with ***Manifest V3***. You can use the official documentation of the Chrome Developers website [here](https://developer.chrome.com/docs/extensions/).
 Your extension is supposed to work ***only*** on the ***Twitter*** website. When on the Twitter website, the extension will be enabled by clicking the Chrome extension icon, and:
 1. It will gather all tweet texts visible in the Twitter tab.
-
 ***Hint:*** Take a look at the DOM on the Twitter website and define a pattern to extract the tweet texts.
 2. Sends all tweet texts to the language detection API endpoint.
 3. After getting the response from the first API, it will ***filter*** the ***English tweets*** and sends them to the sentiment score API endpoint.
 4. After getting the sentiment scores from the second endpoint, you must ***add one of the*** 😊, 😐, ☹️ emojis ***next to the date of the tweet***.
-
 ***Hint:*** You should manipulate the DOM and add the emoji as a new element with the ***same style*** as the tweet's date.
