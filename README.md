@@ -2,7 +2,7 @@
 
 TASK 👉  [check here](https://github.com/harshakoneru98/Twitter-Chrome-Extension/blob/main/task.md)
 
-DEMO 👉  [https://drive.google.com/file/d/1qltu1XuK5M_aQe2mpixuZNtZFRhlXgwh/view?usp=share_link](https://drive.google.com/file/d/1qltu1XuK5M_aQe2mpixuZNtZFRhlXgwh/view?usp=share_link)
+DEMO 👉  [https://drive.google.com/file/d/1JyICiceLkbJp6eI3rJ2JkfI3RhEx052g/view?usp=sharing](https://drive.google.com/file/d/1JyICiceLkbJp6eI3rJ2JkfI3RhEx052g/view?usp=sharing)
 
 ## About
 A Chrome Extension reads the tweets in the user timeline and calculates the sentiment score for English language tweets, and displays the tweet sentiment mood in each English tweet.
